@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #faf6f0;
+  --color-surface: #ffffff;
+  --color-line: #ede4d6;
+  --color-sand: #f6eedf;
+  --color-gold: #d4a24c;
+  --color-gold-dark: #b8934a;
+  --color-terra: #c25e3a;
+  --color-ink: #2b2622;
+  --color-mute: #7a6f63;
+  --color-ok: #3e8e5a;
+  --color-bad: #c0392b;
+
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+
+  --breakpoint-tab: 481px;
+  --breakpoint-desk: 1024px;
+
+  --ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@layer base {
+  html {
+    max-width: 100vw;
+    overflow-x: hidden;
+    height: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    height: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+    background-color: #faf6f0;
+    background-image: radial-gradient(900px 520px at 8% -8%, #f7e8cc 0%, rgba(247, 232, 204, 0) 62%),
+      radial-gradient(760px 480px at 100% 0%, #f5dfd2 0%, rgba(245, 223, 210, 0) 58%);
+    background-attachment: fixed;
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+  }
+  #root {
+    height: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  button {
+    cursor: pointer;
+    font-family: inherit;
+  }
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+  img {
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white border border-line rounded-[20px] overflow-hidden max-w-full min-w-0;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 h-12 px-5 rounded-[14px] font-semibold text-[15px] select-none whitespace-nowrap max-w-full min-w-0 transition-[transform,opacity,background-color] duration-150 active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply bg-gradient-to-br from-gold to-gold-dark text-ink shadow-[0_8px_18px_-8px_rgba(184,147,74,0.7)];
+  }
+  .btn-soft {
+    @apply bg-sand text-ink;
+  }
+  .btn-outline {
+    @apply bg-white text-ink border border-line;
+  }
+  .btn-danger {
+    @apply bg-bad/10 text-bad;
+  }
+  .btn-ok {
+    @apply bg-ok text-white;
+  }
+  .btn-sm {
+    @apply h-10 px-4 text-[14px] rounded-xl;
+  }
+  .icon-btn {
+    @apply inline-flex items-center justify-center size-10 rounded-full bg-white border border-line text-ink shrink-0 transition-transform duration-150 active:scale-[0.94];
+  }
+  .input {
+    @apply w-full min-w-0 h-12 px-4 rounded-[14px] border border-line bg-white text-[15px] text-ink outline-none transition-[border-color,box-shadow] placeholder:text-mute/70 focus:border-gold focus:ring-4 focus:ring-gold/15;
+  }
+  textarea.input {
+    @apply h-auto py-3 leading-relaxed resize-none;
+  }
+  .chip {
+    @apply inline-flex items-center justify-center h-9 px-4 rounded-full text-[13px] font-semibold border border-line bg-white text-mute shrink-0 whitespace-nowrap select-none transition-[transform,background-color,color,border-color] duration-150 active:scale-[0.97];
+  }
+  .chip[data-active="true"] {
+    @apply bg-ink border-ink text-white;
+  }
+  .badge {
+    @apply inline-flex items-center h-6 px-2.5 rounded-full text-[11px] font-bold max-w-full min-w-0 truncate shrink-0;
+  }
+  .field-label {
+    @apply block text-[12px] font-semibold text-mute mb-1.5 truncate;
+  }
+  .section-title {
+    @apply text-[13px] font-bold text-mute truncate;
+  }
+  .pb-safe {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  }
+}
+
+@layer utilities {
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  .gpu {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+/* ── Animations (transform / opacity only) ── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sheet-in {
+  from {
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.anim-fade-up {
+  animation: fade-up 200ms var(--ease-sheet) both;
+}
+.anim-fade-in {
+  animation: fade-in 200ms ease-out both;
+}
+.anim-pop {
+  animation: pop-in 220ms var(--ease-sheet) both;
+}
+.sheet-enter {
+  animation: sheet-in 340ms var(--ease-sheet) backwards;
+}
+.backdrop-enter {
+  animation: fade-in 260ms ease-out backwards;
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: #f1e9db;
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+  animation: shimmer 1.5s infinite;
+}
+
+/* Keep-alive tab screens */
+.screen {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  transition: opacity 200ms var(--ease-sheet), transform 200ms var(--ease-sheet), visibility 0s linear 200ms;
+}
+.screen[data-active="false"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate3d(0, 8px, 0);
+}
+.screen[data-active="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
